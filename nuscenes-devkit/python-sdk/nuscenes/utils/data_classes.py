@@ -1236,6 +1236,7 @@ class Box:
         self.velocity = np.array(velocity)
         self.name = name
         self.token = token
+        self.age = 1
 
     def __eq__(self, other):
         center = np.allclose(self.center, other.center)

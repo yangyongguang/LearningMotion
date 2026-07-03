@@ -1,0 +1,36 @@
+input_pc.shape
+Out[5]: torch.Size([1, 34720, 5])
+curr_frame_pc.shape
+Out[6]: torch.Size([1, 34720, 5])
+input_gt_boxes.shape
+Out[7]: torch.Size([1, 37, 10])
+
+
+curr_boxes_gt = convert_pickle_boxes_to_torch_box(curr_boxes_gt_orig)
+input_pc = torch.from_numpy(np.ascontiguousarray(all_pc.transpose())).unsqueeze(dim=0).cuda().float()
+curr_frame_pc = torch.from_numpy(np.ascontiguousarray(curr_frame_pc.transpose())).\
+    unsqueeze(dim=0).cuda().float()
+input_gt_boxes_tensor = torch.from_numpy(curr_boxes_gt).unsqueeze(dim=0).float()
+input_gt_boxes = input_gt_boxes_tensor.cuda().contiguous()
+ret = {
+    'points': input_pc.squeeze(dim=0),
+    'pc': curr_frame_pc.squeeze(dim=0),
+    'gt_boxes': input_gt_boxes,
+    'scene_idx': scene_idx,
+    'sweep_idx': sweep_idx,
+    'is_key_frame': is_key_frame,
+    'ego_motion': curr_ego_trans_matrix,
+    'gt_boxes_orig': curr_boxes_gt_orig,
+    'token': data_token,
+}
+return ret
+
+
+# 'gt_boxes': input_gt_boxes,
+
+
+# todo list
+1. data preprocess box(gt_boxes_orig), point, velocity.
+2. create gt_boxes_orig(gt_tensor... c_bn), gt_boxes
+3. construct change random by data len in model auto, when data reach the end. change random, one seq data use one rand
+4. check this random function in train process

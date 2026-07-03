@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.so
+build/
+.idea/
+checkpoint/
+work_dir/
+debug/
+log.txt
+

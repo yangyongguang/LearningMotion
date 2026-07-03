@@ -6,7 +6,7 @@ import os
 from nuscenes.utils.data_classes import LidarPointCloud
 import numpy as np
 import argparse
-from data.data_utils import voxelize_occupy, gen_2d_grid_gt
+# from data.data_utils import voxelize_occupy, gen_2d_grid_gt
 
 
 def check_folder(folder_name):
@@ -16,7 +16,7 @@ def check_folder(folder_name):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-r', '--root', default='/media/pwu/Data/3D_data/nuscene/all_nuscene', type=str, help='Root path to nuScenes dataset')
+parser.add_argument('-r', '--root', default='/media/yyg/C14D581BDA18EBFA/nuScenesFull', type=str, help='Root path to nuScenes dataset')
 parser.add_argument('-s', '--split', default='train', type=str, help='The data split [train/val/test]')
 parser.add_argument('-p', '--savepath', default='/media/pwu/62316788-a8e6-423c-9ed3-303ebb3ab2de/pwu/temporal_data/train', type=str, help='Directory for saving the generated data')
 args = parser.parse_args()
@@ -50,7 +50,7 @@ future_frame_skip = 0  # when generating the BEV maps, how many future frames ne
 num_past_frames_for_bev_seq = 5  # the number of past frames for BEV map sequence
 
 
-scenes = np.load('data/split.npy', allow_pickle=True).item().get(args.split)
+scenes = np.load('/media/yyg/C14D581BDA18EBFA/code/MotionNet/data/split.npy', allow_pickle=True).item().get(args.split)
 print("Split: {}, which contains {} scenes.".format(args.split, len(scenes)))
 
 # ---------------------- Extract the scenes, and then pre-process them into BEV maps ----------------------
